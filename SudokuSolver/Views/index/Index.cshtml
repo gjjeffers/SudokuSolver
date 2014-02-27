@@ -1,0 +1,26 @@
+﻿@model SudokuSolver.Models.Puzzle
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="@Url.Content("/Scripts/jquery-1.7.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/SudokuSolver.js")"></script>
+    <title>Sudoku Solver</title>
+</head>
+<body>
+    <table style="border: none">
+        <tr>
+            <td style="border: none">
+                @Html.Label("Select a file")
+            </td>
+        </tr>
+        <tr>
+            <td style="border: none">
+                <input type="file" id="selectFile" />
+            </td>
+        </tr>
+    </table>
+    <div id="puzzleGrid">
+        @Html.Partial("Solve", Model)
+    </div>
+</body>
+</html>
