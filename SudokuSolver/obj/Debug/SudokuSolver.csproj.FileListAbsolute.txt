@@ -1,0 +1,43 @@
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\SudokuSolver.dll.config
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\SudokuSolver.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\SudokuSolver.pdb
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\EntityFramework.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.Helpers.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.Mvc.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.Providers.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.Razor.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.Deployment.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.Razor.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\EntityFramework.xml
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.Helpers.xml
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.Mvc.xml
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.Razor.xml
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.xml
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.Deployment.xml
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.Razor.xml
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\obj\Debug\SudokuSolver.dll
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\obj\Debug\SudokuSolver.pdb
+C:\Users\5268\Documents\Visual Studio 2013\Projects\SudokuSolver\SudokuSolver\obj\Debug\SudokuSolver.csprojResolveAssemblyReference.cache
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\SudokuSolver.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\SudokuSolver.pdb
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\EntityFramework.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.Helpers.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.Mvc.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.Providers.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.Razor.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.Deployment.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.Razor.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\EntityFramework.xml
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.Helpers.xml
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.Mvc.xml
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.Razor.xml
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.xml
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.Deployment.xml
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\bin\System.Web.WebPages.Razor.xml
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\obj\Debug\SudokuSolver.csprojResolveAssemblyReference.cache
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\obj\Debug\SudokuSolver.dll
+C:\Users\crownedchild\Desktop\SudokuSolver\SudokuSolver\obj\Debug\SudokuSolver.pdb

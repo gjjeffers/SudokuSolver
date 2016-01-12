@@ -124,7 +124,7 @@ namespace SudokuSolver.Models
 
                 for (int i = 0; i < 9; i++)
                 {
-                    if (CheckRow(ref testingGrid,i))
+                    if (Check(ref testingGrid,i,0,i,8))
                     {
                         //if a number is found reset the search, repeat until no new numbers are found in this pass
                         i = -1;
@@ -135,7 +135,7 @@ namespace SudokuSolver.Models
 
                 for (int i = 0; i < 9; i++)
                 {
-                    if (CheckCol(ref testingGrid,i))
+                    if (Check(ref testingGrid,0,i,8,i))
                     {
                         //if a number is found reset the search, repeat until no new numbers are found in this pass
                         i = -1;
@@ -148,7 +148,8 @@ namespace SudokuSolver.Models
                 {
                     for (int y = 0; y < 9; y++)
                     {
-                        if (CheckBlock(ref testingGrid,x, y))
+                        int[] bounds = GetBlockBounds(x, y);
+                        if (Check(ref testingGrid,bounds[0], bounds[2],bounds[1],bounds[3]))
                         {
                             //reset the nested loop, y = 9 will end inner loop, and x = -1 will restart the outer loop
                             x = -1;
@@ -188,83 +189,9 @@ namespace SudokuSolver.Models
             return found;
         }
 
-        private bool CheckRow(ref Node[,] g, int row)
+        private bool Check(ref Node[,] g, int rStart, int cStart, int rEnd, int cEnd)
         {
-            int[] possCount = new int[9];
-            int foundRow = 0;
-            int foundCol = 0;
-            int foundNum = 0;
-            bool found = false;
-            for (int x = 0; x < 9; x++)
-            {
-                for (int p = 0; p < 9; p++)
-                {
-                    if (g[row, x].possNum[p])
-                    {
-                        possCount[p]++;
-                    }
-                }
-            }
-
-            while (possCount.Contains(1))
-            {
-                found = true;
-                foundNum = (Array.IndexOf(possCount, 1)); //increase by one to represent the actual number found, not the offset
-                for(int y = 0; y< 9; y++){
-                    if(g[row,y].possNum[foundNum]){
-                        foundRow = row;
-                        foundCol = y;
-                        g = SetNode(g, row, y, foundNum+1);
-                        possCount[foundNum] = 0;
-                    }
-                }
-                
-            }
-
-            return found;
-        }
-
-        private bool CheckCol(ref Node[,] g,int col)
-        {
-            int[] possCount = new int[9];
-            int foundRow = 0;
-            int foundCol = 0;
-            int foundNum = 0;
-            bool found = false;
-            for (int x = 0; x < 9; x++)
-            {
-                for (int p = 0; p < 9; p++)
-                {
-                    if (g[x, col].possNum[p])
-                    {
-                        possCount[p]++;
-                    }
-                }
-            }
-
-            while (possCount.Contains(1))
-            {
-                found = true;
-                foundNum = (Array.IndexOf(possCount, 1)); //increase by one to represent the actual number found, not the offset
-                for (int y = 0; y < 9; y++)
-                {
-                    if (g[y, col].possNum[foundNum])
-                    {
-                        foundRow = y;
-                        foundCol = col;
-                        g = SetNode(g, y, col, foundNum+1);
-                        possCount[foundNum] = 0;
-                    }
-                }
-
-            }
-
-            return found;
-        }
-
-        private bool CheckBlock(ref Node[,] g,int rIndex, int cIndex)
-        {
-            int[] bounds = GetBlockBounds(rIndex, cIndex);
+            int[] bounds = new int[]{rStart,rEnd,cStart,cEnd};
             int[] possCount = new int[9];
             int foundRow = 0;
             int foundCol = 0;
@@ -284,7 +211,7 @@ namespace SudokuSolver.Models
                     }
                 }
             }
-            while (possCount.Contains(1))
+            if (possCount.Contains(1))
             {
                 found = true;
                 foundNum = (Array.IndexOf(possCount, 1)); //increase by one to represent the actual number found, not the offset
@@ -296,8 +223,9 @@ namespace SudokuSolver.Models
                         {
                             foundRow = h;
                             foundCol = j;
-                            g = SetNode(g,foundRow, foundCol, foundNum+1);
-                            possCount[foundNum] = 0;
+                            g = SetNode(g, foundRow, foundCol, foundNum + 1);
+                            h = 10;
+                            j = 10; //number was found, exit and restart search
                         }
                     }
                 }
@@ -311,7 +239,7 @@ namespace SudokuSolver.Models
             for (int x = 0; x < 9; x++){
                 for (int y = 0; y < 9; y++)
                 {
-                    if (g[x, y].val == 0)
+                    if (g[x, y].possNum.Contains(true))
                     {
                         return false;
                     }
@@ -325,11 +253,11 @@ namespace SudokuSolver.Models
             bool valid = true;
             for (int i = 0; i < 9; i++)
             {
-                if(!ValidateRow(g,i)){
+                if(!Validate(g,i,0,i,8)){
                     valid = false;
                 }
 
-                if(!ValidateCol(g,i)){
+                if(!Validate(g,0,i,8,i)){
                     valid = false;
                 }
 
@@ -339,7 +267,8 @@ namespace SudokuSolver.Models
             {
                 for (int y = 0; y < 9; y++)
                 {
-                    if (!ValidateBlock(g, x, y))
+                    int[] bounds = GetBlockBounds(x, y);
+                    if (!Validate(g, bounds[0], bounds[2],bounds[1],bounds[2]))
                     {
                         valid = false;
                     }
@@ -349,45 +278,82 @@ namespace SudokuSolver.Models
             return valid;
         }
 
-        private bool ValidateRow(Node[,] n,int r)
-        {
-            bool[] values = new bool[9];
-            bool valid = true;
-            for(int i = 0; i < 9; i++){
-                if (n[r, i].val != 0)
-                {
-                    if(!values[n[r,i].val -1])
-                        values[n[r, i].val - 1] = true;
-                    else{
-                        valid = false;
-                    }
-                }
-            }
-            return valid;
-        }
+        //private bool ValidateRow(Node[,] n,int r)
+        //{
+        //    bool[] values = new bool[9];
+        //    bool valid = true;            
+        //    for(int i = 0; i < 9; i++){
+        //        if (n[r, i].val != 0)
+        //        {
+        //            if(!values[n[r,i].val -1])
+        //                values[n[r, i].val - 1] = true;
+        //            else{
+        //                valid = false;
+        //            }
+        //        }
+        //        else if (!n[r, i].possNum.Contains(true)) //if value has not been set and there are not any possible values
+        //        {
+        //            valid = false;
+        //        }
+        //    }
+        //    return valid;
+        //}
 
-        private bool ValidateCol(Node[,] n, int c)
-        {
-            bool[] values = new bool[9];
-            bool valid = true;
-            for (int i = 0; i < 9; i++)
-            {
-                if (n[i, c].val != 0)
-                {
-                    if (!values[n[i, c].val - 1])
-                        values[n[i, c].val - 1] = true;
-                    else
-                    {
-                        valid = false;
-                    }
-                }
-            }
-            return valid;
-        }
+        //private bool ValidateCol(Node[,] n, int c)
+        //{
+        //    bool[] values = new bool[9];
+        //    bool valid = true;
+        //    for (int i = 0; i < 9; i++)
+        //    {
+        //        if (n[i, c].val != 0)
+        //        {
+        //            if (!values[n[i, c].val - 1])
+        //                values[n[i, c].val - 1] = true;
+        //            else
+        //            {
+        //                valid = false;
+        //            }
+        //        }
+        //        else if (!n[i, c].possNum.Contains(true)) //if value has not been set and there are not any possible values
+        //        {
+        //            valid = false;
+        //        }
+        //    }
+        //    return valid;
+        //}
 
-        private bool ValidateBlock(Node[,] n, int r, int c)
+        //private bool ValidateBlock(Node[,] n, int r, int c)
+        //{
+        //    int[] bounds = GetBlockBounds(r, c);
+        //    bool[] values = new bool[9];
+        //    bool valid = true;
+        //    for (int x = bounds[0]; x <= bounds[1]; x++)
+        //    {
+        //        for (int y = bounds[2]; y <= bounds[3]; y++)
+        //        {
+        //            if (n[x, y].val != 0)
+        //            {
+        //                if (!values[n[x, y].val - 1])
+        //                {
+        //                    values[n[x, y].val - 1] = true;
+        //                }
+        //                else
+        //                {
+        //                    valid = false;
+        //                }
+        //            }
+        //            else if (!n[x,y].possNum.Contains(true)) //if value has not been set and there are not any possible values
+        //            {
+        //                valid = false;
+        //            }
+        //        }
+        //    }
+        //    return valid;
+        //}
+
+        private bool Validate(Node[,] n, int rStart, int cStart, int rEnd, int cEnd)
         {
-            int[] bounds = GetBlockBounds(r, c);
+            int[] bounds = new int[]{rStart,rEnd,cStart,cEnd};
             bool[] values = new bool[9];
             bool valid = true;
             for (int x = bounds[0]; x <= bounds[1]; x++)
@@ -405,10 +371,13 @@ namespace SudokuSolver.Models
                             valid = false;
                         }
                     }
+                    else if (!n[x, y].possNum.Contains(true)) //if value has not been set and there are not any possible values
+                    {
+                        valid = false;
+                    }
                 }
             }
             return valid;
-
         }
 
         private Node[,] ComplexSolve(Node[,] g)
@@ -423,12 +392,12 @@ namespace SudokuSolver.Models
             else if(_valid && !_complete)
             {
                 int[] guess = Guess(g);
-                Node[,] hold = g;
+                Node[,] hold = DeepCopy(g);
                 g = SetNode(g, guess[0], guess[1], guess[2]);
                 g = ComplexSolve(g);
                 if (!PuzzleValid(g))
                 {
-                    g = hold;
+                    g = hold; //Guess failed, restore saved puzzle                    
                     g[guess[0], guess[1]].RemovePoss(guess[2]);
                 }
 
@@ -450,7 +419,7 @@ namespace SudokuSolver.Models
                             {
                                 guess[0] = x;
                                 guess[1] = y;
-                                guess[2] = i;
+                                guess[2] = i+1; //adjust for base 0
                                 return guess;
                             }
                         }
@@ -461,7 +430,30 @@ namespace SudokuSolver.Models
 
         }
 
-        public class Node
+        private Node[,] DeepCopy(Node[,] source)
+        {
+            Node[,] dest = new Node[9, 9];
+            for(int x = 0; x < 9; x++){
+                for (int y = 0; y < 9; y++)
+                {
+                    dest[x, y] = (Node)source[x, y].Clone();
+                }
+            }
+            return dest; 
+        }
+
+        private Node[] GetRow(Node[,] grid, int row) {
+            Node[] ret = new Node[9];
+            for (int i = 0; i < 9; i++)
+            {
+                ret[i] = grid[row, i];
+            }
+            return ret;
+        }
+
+
+
+        public class Node: ICloneable
         {
             public bool[] possNum;
             public int val{get;set;}
@@ -470,16 +462,21 @@ namespace SudokuSolver.Models
             {
                 //with new node, all possibilities are enabled
                 val = 0;
-                possNum = new bool[9];
-                for (int i = 0; i < 9; i++)
-                {
-                    possNum[i] = true;
-                }
+                possNum = new bool[9] {true,true,true,true,true,true,true,true,true};
             }
 
             public void RemovePoss(int delNum){
                 //Remove a number as a possibility
                 possNum[delNum - 1] = false;
+            }
+
+            public object Clone()
+            {
+                return new Node()
+                {
+                    possNum = (bool[])this.possNum.Clone(),
+                    val = this.val
+                };
             }
         }
     }
